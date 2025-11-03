@@ -7,13 +7,13 @@
   <title>CodeDeploy Demo — Interactive</title>
   <style>
     :root {
-      --bg: #0b3d0b;
+      --bg: #e75480;
       --accent: #ffd54d;
       --muted: #e0f2e9
     }
 
     body {
-      background: linear-gradient(180deg, var(--bg), #145214);
+      background: linear-gradient(180deg, var(--bg), #ff69b4);
       color: var(--muted);
       font-family: Inter, Arial, sans-serif;
       margin: 0;
@@ -36,7 +36,7 @@
 
     p.lead {
       margin-top: 0.25rem;
-      color: #cfead6
+      color: #ffb6c1
     }
 
     .row {
@@ -66,7 +66,7 @@
     footer {
       margin-top: 1.25rem;
       font-size: 0.85rem;
-      color: #bcd9c9
+      color: #ffb6c1
     }
 
     a {
@@ -87,7 +87,7 @@
       <div class="card">
         <h3>Live clock</h3>
         <div id="clock" class="mono" aria-live="polite">--:--:--</div>
-        <div id="tz" style="margin-top:.5rem;color:#cfead6">UTC</div>
+        <div id="tz" style="margin-top:.5rem;color:#ffb6c1">UTC</div>
       </div>
 
       <div class="card">
@@ -122,7 +122,6 @@
   </div>
 
   <script>
-    // live clock
     function updateClock() {
       const now = new Date();
       const t = now.toLocaleTimeString();
@@ -132,7 +131,6 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
-    // rotating facts
     const facts = [
       'This site is deployed via AWS CodeDeploy.',
       'You can configure lifecycle hooks in appspec.yml.',
@@ -143,7 +141,6 @@
     function rotateFact() { document.getElementById('fact').textContent = facts[fi]; fi = (fi + 1) % facts.length; }
     rotateFact(); setInterval(rotateFact, 5000);
 
-    // Try to fetch deploy-info.json (created by the workflow and included in the artifact)
     fetch('/deploy-info.json').then(r => {
       if (!r.ok) throw new Error('no');
       return r.json();
@@ -158,7 +155,6 @@
         document.getElementById('commit-link').appendChild(a);
       }
     }).catch(() => {
-      // fallback to window variables if workflow didn't include deploy-info.json
       const commit = window.DEPLOY_COMMIT || null;
       const repo = window.DEPLOY_REPO || null;
       if (commit) document.getElementById('commit').textContent = commit;
@@ -166,5 +162,4 @@
     });
   </script>
 </body>
-
 </html>
